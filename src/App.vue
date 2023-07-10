@@ -1,25 +1,26 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/admin">Admin</router-link>
-    |
-    <router-link to="/products">Products</router-link>
-    |
-    <router-link to="/checkout">Checkout</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/admin">Admin</router-link> |
+      <router-link to="/products">Products</router-link> |
+      <router-link to="/checkout">Checkout</router-link>
+    </nav>
+    <router-view />
+    <AppFooter /> 
+  </div>
 </template>
-<script>
 
+<script>
+import AppFooter from './components/FooterCompt.vue';
 
 export default {
+  name: 'App',
   components: {
-   
-  }
+    AppFooter
+  },
 }
-
 </script>
-
 
 <style>
 #app {
@@ -43,3 +44,4 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+
