@@ -48,8 +48,8 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <td>
-          <button class="delete-button" onclick="deleteItem{{index}}">Delete</button>
-          <button class="edit-button" onclick="editItem{{index}}">Edit</button>
+          <button class="delete-button" @click="deleteItem(index)">Delete</button>
+          <button class="edit-button" @click="editItem(index)">Edit</button>
         </td>
         </tr>
     </tbody>
@@ -67,9 +67,37 @@ export default {
   mounted() {
     this.$store.dispatch('fetchProducts');
   },
- 
+
+
+data() {
+   return {
+    newProduct: {
+      name: '',
+      price: '',
+      image: '',
+      },
+    };
+  },
+  methods: {
+    addItem() {
+      this.$store.dispatch('createProducts', { newProduct: this.newProduct });
+    },
+    deleteItem() {
+      this.$store.dispatch('deleteProducts', { newProduct: this.newProduct });
+    },
+    editItem() {
+      this.$store.dispatch('editProducts', { newProduct: this.newProduct });
+    },
+    sortItem() {
+      this.$store.dispatch('sortProducts', { newProduct: this.newProduct });
+    },
+
+  }
 };
 
+
+
+    
 
 </script>
 
@@ -121,6 +149,11 @@ tr th,tr td{
  justify-content: space-between;
  padding-bottom: 5%;
  font-size: xx-large;
+
+}
+
+img{
+  width: 15%;
 
 }
 

@@ -15,28 +15,66 @@ export default createStore({
   actions: {
     async fetchProducts(context) {
       try {
-        let res = await fetch(dataUrl);
-        let {products} = await res.json();
+        const res = await fetch(dataUrl);
+        const { products } = await res.json();
         if (products) {
           context.commit('setProducts', products);
         }
       } catch (error) {
         console.error('Error fetching products:', error);
       }
-    }
-  },
+    },
+    async updateProduct(context, { updatedProduct, id }) {
+      try {
+        await fetch(`${dataUrl}/${id}`, {
+          method: 'PUT',
+          headers: {
+            'content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedProduct)
+        });
 
-function update(updatedProducts, id) {
-    return fetch(`https://0731520994.github.io/JSONServer/database.json/${id}`, {
-      method: "Post",
-      body: JSON.stringify(updatedProducts),
-      headers: {
-        'contect-Type': 'application/json',
+        context.dispatch('fetchProducts');
+      } catch (error) {
+        console.error('Error updating product:', error);
       }
-    })
-    .then(res => res.json())
+    },
+    async deleteProduct(context, { id }) {
+      try {
+        await fetch(`${dataUrl}/${id}`, {
+          method: 'DELETE'
+        });
+        context.dispatch('fetchProducts');
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    },
+    async createProduct(context, { newProduct }) {
+      try {
+        await fetch(dataUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(newProduct)
+        });
+        context.dispatch('fetchProducts');
+      } catch (error) {
+        console.error('Error creating product:', error);
+      }
+    }
   }
-function update(products){
-  null
-}
-})
+});
+
+
+
+
+
+
+
+ 
+
+  
+  
+

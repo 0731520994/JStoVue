@@ -30,5 +30,9 @@ export default {
 </script>
 
 <style scoped>
+img{
+  width: 15rem
+}
+
 
 </style>
